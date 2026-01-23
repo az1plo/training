@@ -8,6 +8,7 @@ export function mapUserDtoToUser(dto: UserDto): User {
     name: dto.full_name,
     age: dto.age,
     sex: dto.sex == null ? null : mapSex(dto.sex),
+    email: dto.email,
   };
 
   function mapSex(value: unknown): Sex {

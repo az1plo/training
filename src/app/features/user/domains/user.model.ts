@@ -6,7 +6,9 @@ export interface User {
   name: string;
   age: number;
   sex: Sex | null;
+  email: string;
 }
+
 
 export function isSex(value: string): value is Sex {
   return (SEX_VALUES as readonly string[]).includes(value);
