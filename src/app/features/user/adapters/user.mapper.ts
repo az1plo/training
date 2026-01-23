@@ -7,6 +7,7 @@ export function mapUserDtoToUser(dto: UserDto): User {
         id: dto.id,
         name: dto.full_name,
         age: dto.age,
+        email: dto.email,
         sex: dto.sex == null ? null : mapSex(dto.sex),
     }
 }
