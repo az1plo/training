@@ -1,6 +1,5 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import * as Sentry from "@sentry/angular";
 import {UserProfile} from './features/user/pages/user-profile/user-profile';
 
 @Component({
