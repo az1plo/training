@@ -1,6 +1,8 @@
 import {Observable} from 'rxjs';
 import {User} from './user.model';
+import {UpdateUserData} from './datas/update-user.data';
 
-export abstract class UserRepository {
-  abstract getCurrentUser(): Observable<User>;
+export interface UserRepository {
+   getCurrentUser(): Observable<User>;
+   updateUser(data: UpdateUserData): Observable<User>;
 }

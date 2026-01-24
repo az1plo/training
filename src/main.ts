@@ -2,7 +2,7 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { appConfig } from './app/app.config';
 import { App } from './app/app';
 import * as Sentry from '@sentry/angular';
-import {environment} from './envionments/environment.prod';
+import {environment} from './environments/environment.prod';
 
 if(environment.production && environment.sentryDsn) {
   Sentry.init({
@@ -23,5 +23,9 @@ if(environment.production && environment.sentryDsn) {
 
 bootstrapApplication(App, appConfig)
   .catch(err => {
-    Sentry.captureException(err);
+    if (environment.production) {
+      Sentry.captureException(err);
+    } else {
+      console.error(err);
+    }
   });

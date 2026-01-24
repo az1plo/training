@@ -5,7 +5,7 @@ import * as Sentry from '@sentry/angular';
 import {LOGGER} from './core/tokens/logger.token';
 import {SentryLoggerAdapter} from './adapters/monitoring/sentry.logger.adapter';
 import {ConsoleLoggerAdapter} from './adapters/monitoring/console.logger.adapter';
-import {environment} from '../envionments/environment';
+import {environment} from '../environments/environment';
 import {provideMonitoring} from './core/providers/monitoring.provider';
 import {SentryUserContextAdapter} from './adapters/monitoring/sentry-user-context.adapter';
 import {USER_CONTEXT} from './core/tokens/user-context.token';

@@ -1,6 +1,7 @@
-import {UserDto} from './user.dto';
+import {UpdateUserDto, UserDto} from './user.dto';
 import {isSex, Sex, User} from '../domains/user.model';
 import {InvalidSexError} from '../domains/errors';
+import {UpdateUserData} from '../domains/datas/update-user.data';
 
 export function mapUserDtoToUser(dto: UserDto): User {
   return {
@@ -17,4 +18,11 @@ export function mapUserDtoToUser(dto: UserDto): User {
     }
     return value;
   }
+}
+
+export function mapDataToDto(data: UpdateUserData): UpdateUserDto {
+  return {
+    user_email: data.email,
+    user_age: data.age,
+  };
 }
