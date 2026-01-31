@@ -1,12 +1,10 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { ProfilePageComponent } from './feature/user/ui/pages/profile-page.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.html',
-  styleUrl: './app.scss'
+  standalone: true,
+  imports: [ProfilePageComponent],
+  template: `<user-profile-page />`,
 })
-export class App {
-  protected readonly title = signal('feature-based-architecture');
-}
+export class App {}

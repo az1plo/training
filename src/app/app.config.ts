@@ -12,9 +12,9 @@ import { environment } from '../environments/environment';
 import { provideMonitoring } from './core/providers/monitoring.provider';
 import { LOGGER } from './core/tokens/logger.token';
 import { USER_CONTEXT } from './core/tokens/user-context.token';
-import { SentryLoggerAdapter } from './adapters/monitoring/sentry.logger.adapter';
-import { ConsoleLoggerAdapter } from './adapters/monitoring/console.logger.adapter';
-import { SentryUserContextAdapter } from './adapters/monitoring/sentry-user-context.adapter';
+import { SentryLoggerAdapter } from './infrastructure/monitoring/sentry.logger.adapter';
+import { ConsoleLoggerAdapter } from './infrastructure/monitoring/console.logger.adapter';
+import { SentryUserContextAdapter } from './infrastructure/monitoring/sentry-user-context.adapter';
 
 export const appConfig: ApplicationConfig = {
   providers: [
