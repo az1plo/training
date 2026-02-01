@@ -1,4 +1,4 @@
-import { UserVm } from '../user.vm';
+import { UserVm } from './user.vm';
 import { UserError } from '../user.error';
 
 export interface UserProfilePageVm {

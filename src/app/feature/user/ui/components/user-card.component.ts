@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
 import { UserFormVm } from "../../application/vms/user-form.vm";
-import { UserVm } from "../../application/user.vm";
+import { UserVm } from "../../application/vms/user.vm";
 import { CommonModule } from "@angular/common";
 import { ButtonComponent } from "../../../../shared/ui/button/button.component";
 import { FormsModule } from "@angular/forms";

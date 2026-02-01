@@ -1,5 +1,5 @@
 import { UserDto } from '../user.result';
-import { UserVm } from "../user.vm";
+import { UserVm } from "../vms/user.vm";
 
 export function mapUserToVm(dto: UserDto): UserVm {
     return {
