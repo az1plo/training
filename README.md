@@ -395,50 +395,7 @@ This allows AI to:
 
 ---
 
-## 18. Layered Presentation (Text Version)
-
-### Slide 1 — Title
-FOLCHA Architecture
-
-### Slide 2 — Problem
-Growing complexity, tight coupling, poor scalability
-
-### Slide 3 — Core Idea
-Feature-first, layered, clean, hexagonal
-
-### Slide 4 — Feature Orientation
-Vertical slices, clear ownership
-
-### Slide 5 — Layers
-Domain → Application → Infrastructure → UI
-
-### Slide 6 — Domain
-Pure business rules
-
-### Slide 7 — Application
-Use cases and orchestration
-
-### Slide 8 — Hexagonal
-Ports and adapters
-
-### Slide 9 — Infrastructure
-Replaceable technical details
-
-### Slide 10 — UI & Facades
-Rendering and coordination only
-
-### Slide 11 — Why It Works
-Predictable, testable, scalable
-
-### Slide 12 — AI Compatibility
-Architecture as a contract
-
-### Slide 13 — Conclusion
-Built for longevity
-
----
-
-## 19. Final Statement
+## 18. Final Statement
 
 > Architecture is not about speed today.  
 > It is about freedom tomorrow.
