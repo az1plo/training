@@ -1,59 +1,408 @@
-# FeatureBasedArchitecture
+# FOLCHA Architecture
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.0.
+## Feature-Oriented Layered Clean Hexagonal Architecture
 
-## Development server
+---
 
-To start a local development server, run:
+## 1. What is FOLCHA?
 
-```bash
-ng serve
-```
+**FOLCHA** stands for:
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+> **Feature-Oriented Layered Clean Hexagonal Architecture**
 
-## Code scaffolding
+It is a **composed frontend architecture** that intentionally combines the strongest, most battle-tested ideas from multiple architectural paradigms into a single, strict, and predictable system.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+FOLCHA is designed for:
+- Large applications
+- Long-lived codebases
+- Strong domain boundaries
+- High testability
+- AI-assisted development
 
-```bash
-ng generate component component-name
-```
+It is not experimental.  
+It is **a deliberate synthesis of proven architectures**.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## 2. Architectures Combined in FOLCHA
 
-## Building
+FOLCHA integrates four architectural approaches:
 
-To build the project run:
+### 2.1 Feature-Oriented Architecture
+### 2.2 Layered Architecture
+### 2.3 Clean Architecture
+### 2.4 Hexagonal Architecture (Ports & Adapters)
 
-```bash
-ng build
-```
+Each of them solves a real problem.  
+FOLCHA combines them **without contradiction**.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+## 3. Why Feature-Oriented?
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+### 3.1 The problem with layer-first structures
 
-```bash
-ng test
-```
+Traditional frontend structures:
 
-## Running end-to-end tests
+components/
+services/
+models/
 
-For end-to-end (e2e) testing, run:
+cause:
+- Cross-feature coupling
+- Unclear ownership
+- Difficult refactoring
+- Poor scalability
+- Hard navigation
 
-```bash
-ng e2e
-```
+Logic for one feature is scattered across the entire project.
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+---
 
-## Additional Resources
+### 3.2 Feature-Oriented solution
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+In FOLCHA, **a feature is the primary unit of organization**.
+
+feature/
+user/
+auth/
+profile/
+
+Each feature:
+- Owns its logic end-to-end
+- Can be developed independently
+- Can be tested independently
+- Can be removed with minimal impact
+
+> Features scale better than layers.
+
+---
+
+## 4. Layers Inside a Feature
+
+Each feature is internally split into strict layers:
+
+feature/<feature-name>/
+domain/
+application/
+infrastructure/
+pages/
+facade/
+ui/
+
+This gives:
+- Clear responsibilities
+- Controlled dependencies
+- Predictable file locations
+
+---
+
+## 5. Dependency Rule (Most Important Rule)
+
+**Dependencies always point inward.**
+
+UI → Facade → Application → Domain
+Infrastructure → Application → Domain
+
+
+Never the opposite.
+
+This rule guarantees:
+- Stability
+- Testability
+- Framework independence
+
+---
+
+## 6. Domain Layer
+
+### Purpose
+The **Domain** layer contains pure business logic.
+
+### Characteristics
+- No Angular
+- No RxJS
+- No HTTP
+- No side effects
+- No framework imports
+
+### Contains
+- Entities
+- Value objects
+- Domain errors
+- Domain rules
+- Domain repositories (interfaces)
+
+### Why it exists
+> Business rules must survive framework changes.
+
+The domain is the **most protected and stable** part of the system.
+
+---
+
+## 7. Application Layer
+
+### Purpose
+The **Application** layer orchestrates business workflows.
+
+It answers:
+> “What happens when the user does X?”
+
+### Contains
+- Use cases
+- Commands
+- Application errors
+- Ports (interfaces)
+- Tokens
+- View models (VMs)
+- Pipes (mapping, error translation)
+- `.data.ts` structures
+
+### What `.data.ts` files are
+
+`.data.ts` files represent **transport / persistence data shapes**.
+
+They are:
+- Not domain models
+- Not UI models
+- Explicit boundaries between layers
+
+They protect the domain from leaking infrastructure details.
+
+---
+
+### Why Application is separate from Domain
+
+- Domain defines **rules**
+- Application defines **flows**
+- Application coordinates multiple domain operations
+
+---
+
+## 8. Hexagonal Architecture in FOLCHA
+
+Hexagonal architecture introduces **Ports & Adapters**.
+
+### Ports
+- Live in `domain` or `application`
+- Define what the system needs
+- Pure TypeScript interfaces
+
+### Adapters
+- Live in `infrastructure`
+- Implement ports
+- Talk to real systems (HTTP, storage, monitoring)
+
+> Infrastructure depends on application, never the opposite.
+
+---
+
+## 9. Infrastructure Layer (Feature-Level)
+
+### Purpose
+The **Infrastructure** layer implements technical details.
+
+### Contains
+- HTTP repositories
+- API adapters
+- Monitoring implementations
+- Logging implementations
+- External service integrations
+
+### Rules
+- Implements ports
+- No business logic
+- Replaceable
+- Testable with mocks
+
+Infrastructure is **an implementation detail**, not a core concern.
+
+---
+
+## 10. Core Infrastructure (Shared)
+
+### `core/providers`
+- Angular providers
+- Dependency wiring
+- DI composition
+
+### `core/infrastructure/http`
+- HTTP clients
+- API base configuration
+- Interceptors
+
+### `core/infrastructure/monitoring`
+- Logging
+- User context
+- Error reporting
+
+These are **cross-feature technical concerns**, not business logic.
+
+---
+
+## 11. UI, Pages and Facades
+
+### Pages
+- Route-level components
+- Page composition
+- No business logic
+
+### UI
+- Pure presentational components
+- Dumb components
+- Inputs / Outputs only
+
+### Facade
+- Feature entry point for UI
+- Talks to use cases
+- Exposes observables / VMs
+- Manages page state
+
+> UI never talks directly to application or infrastructure.
+
+---
+
+## 12. Shared Layer
+
+### `shared/ui`
+- Design system components
+- Buttons, inputs, layouts
+- No feature logic
+
+### `shared/utils`
+- Pure helpers
+- Stateless functions
+
+Shared code must:
+- Be generic
+- Be reusable
+- Have no feature knowledge
+
+---
+
+## 13. Testing Strategy in FOLCHA
+
+### Domain
+- Pure unit tests
+- Fast
+- Deterministic
+
+### Application
+- Use case tests
+- Port mocking
+- Error mapping tests
+
+### Infrastructure
+- Adapter tests
+- HTTP mocking
+
+### UI / Facade
+- Facade logic tests
+- Minimal component tests
+
+> Most logic is tested **without Angular TestBed**.
+
+---
+
+## 14. Comparison with Other Architectures
+
+### MVC
+❌ Fat controllers  
+❌ Logic mixed with UI  
+
+**FOLCHA:** strict separation, no logic in UI
+
+---
+
+### MVVM
+❌ ViewModels become domain logic  
+❌ Domain erosion  
+
+**FOLCHA:** VM is presentation-only
+
+---
+
+### Classic Clean Architecture
+❌ Weak feature boundaries  
+
+**FOLCHA:** feature-first + clean rules
+
+---
+
+### Pure Hexagonal
+❌ Over-abstracted for frontend  
+
+**FOLCHA:** pragmatic hexagonal usage
+
+---
+
+## 15. Pros and Cons
+
+### Pros
+✅ Strong boundaries  
+✅ High testability  
+✅ Clear ownership  
+✅ Scales with teams  
+✅ Easy refactoring  
+✅ Framework-independent  
+✅ AI-friendly  
+
+### Cons
+⚠️ More files  
+⚠️ Requires discipline  
+⚠️ Higher entry threshold  
+
+These are **intentional trade-offs**.
+
+---
+
+## 16. Is FOLCHA Proven?
+
+FOLCHA is built from:
+- Clean Architecture (Uncle Bob)
+- Hexagonal Architecture (Cockburn)
+- Feature-Sliced Design
+- DDD tactical patterns
+
+Each of these is:
+- Industry-proven
+- Widely adopted
+- Battle-tested
+
+FOLCHA does not invent new theory.  
+It **correctly composes existing ones**.
+
+---
+
+## 17. Why FOLCHA is Ideal for AI-Assisted Development
+
+AI performs best when:
+- Structure is predictable
+- Rules are explicit
+- Responsibilities are clear
+
+FOLCHA provides:
+- Deterministic file locations
+- Strict dependency rules
+- Clear layer intent
+
+This allows AI to:
+- Generate correct code
+- Refactor safely
+- Reason architecturally
+
+> FOLCHA turns AI into an **architectural assistant**, not a random code generator.
+
+---
+
+## 18. Final Statement
+
+> Architecture is not about speed today.  
+> It is about freedom tomorrow.
+
+FOLCHA is designed for systems that must:
+- Grow
+- Be maintained
+- Be understood by humans and AI alike
+
+![alt text](image.png)

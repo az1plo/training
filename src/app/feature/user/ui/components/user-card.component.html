@@ -1,0 +1,28 @@
+<form (ngSubmit)="save.emit(form)">
+  <input
+    type="email"
+    [(ngModel)]="form.email"
+    name="email"
+    placeholder="Email"
+  />
+
+  <input
+    type="number"
+    [(ngModel)]="form.age"
+    name="age"
+    placeholder="Age"
+  />
+
+  <label>
+    <input
+      type="checkbox"
+      [(ngModel)]="form.agreedToTerms"
+      name="terms"
+    />
+    Accept terms
+  </label>
+
+  <shared-button type="submit">
+    Save
+  </shared-button>
+</form>
